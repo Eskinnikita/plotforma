@@ -2,11 +2,12 @@ const User = require("../models/User");
 const Role = require("../models/Role");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 
 require("dotenv").config();
 const jwtSecret = process.env.JWT_SECRET;
 
+//Generate access token
 const generateAccessToken = (id, roles) => {
   const payload = {
     id,
@@ -38,7 +39,9 @@ class authController {
       });
       await user.save();
       return res.json({ message: "Пользователь успешно зарегистрирован" });
-    } catch (e) {}
+    } catch (e) {
+      return res.status(500).json({ message: "Ошибка сервера" });
+    }
   }
 
   async login(req, res) {
@@ -56,14 +59,18 @@ class authController {
       }
       const token = generateAccessToken(user._id, user.roles);
       res.json({ token });
-    } catch (e) {}
+    } catch (e) {
+      return res.status(500).json({ message: "Ошибка сервера" });
+    }
   }
 
   async getUsers(req, res) {
     try {
       const users = await User.find();
       res.json(users);
-    } catch (e) {}
+    } catch (e) {
+      return res.status(500).json({ message: "Ошибка сервера" });
+    }
   }
 }
 
