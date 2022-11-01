@@ -1,8 +1,19 @@
 const User = require("../models/User");
 const Role = require("../models/Role");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken')
 const { validationResult } = require("express-validator");
 
+require("dotenv").config();
+const jwtSecret = process.env.JWT_SECRET
+
+const generateAccessToken = (id, roles) => {
+  const payload = {
+    id,
+    roles
+  }
+  return jwt.sign(payload, jwtSecret, {expiresIn: "24h"})
+}
 class authController {
   async registation(req, res) {
     try {
@@ -32,6 +43,17 @@ class authController {
 
   async login(req, res) {
     try {
+      const {email, password} = req.body;
+      const user = await User.findOne({email})
+      if(!user) {
+        return res.status(400).json({message: `Пользователь с почтой ${email} не найден`})
+      }
+      const validPassword = bcrypt.compareSync(password, user.password)
+      if(!validPassword) {
+        return res.status(400).json({message: `Введен неверный пароль`})
+      }
+      const token = generateAccessToken(user._id, user.roles)
+      res.json({token})
     } catch (e) {}
   }
 
