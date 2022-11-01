@@ -10,6 +10,7 @@ const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 const app = express();
 
+app.use(express.json())
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
