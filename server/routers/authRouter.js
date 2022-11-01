@@ -1,8 +1,20 @@
 const Router = require("express");
 const router = new Router();
 const controller = require("../controllers/authController");
+const { check } = require("express-validator");
 
-router.post("/registration", controller.registation);
+router.post(
+  "/registration",
+  [
+    check("email", "Поле почта не может быть пустым").notEmpty(),
+    check("username", "Имя пользователя не может быть пустым").notEmpty(),
+    check(
+      "password",
+      "Пароль должен быть больше 4 и меньше 10 символов"
+    ).isLength({ min: 4, max: 10 }),
+  ],
+  controller.registation
+);
 router.post("/login", controller.login);
 router.get("/users", controller.getUser);
 
