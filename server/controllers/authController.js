@@ -3,6 +3,7 @@ const Role = require("../models/Role");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+const { json } = require("body-parser");
 
 require("dotenv").config();
 const jwtSecret = process.env.JWT_SECRET;
@@ -55,7 +56,7 @@ class authController {
         return res.status(400).json({ message: `Введен неверный пароль` });
       }
       const token = generateAccessToken(user._id, user.roles);
-      res.json({ token });
+      res.json({ user, token });
     } catch (e) {}
   }
 
