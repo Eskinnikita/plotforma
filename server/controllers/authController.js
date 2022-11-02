@@ -2,7 +2,7 @@ const User = require("../models/User");
 const Role = require("../models/Role");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { body, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 require("dotenv").config();
 const jwtSecret = process.env.JWT_SECRET;
@@ -59,9 +59,7 @@ class authController {
       }
       const token = generateAccessToken(user._id, user.roles);
       res.json({ token });
-    } catch (e) {
-      return res.status(500).json({ message: "Ошибка сервера" });
-    }
+    } catch (e) {}
   }
 
   async getUsers(req, res) {
