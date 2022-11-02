@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import apiService from "@/services/apiService";
 
 export const useUserStore = defineStore({
-  id: "counter",
+  id: "user",
   state: () => ({
     user: {},
     token: localStorage.getItem("user-token") || "",
@@ -12,8 +12,8 @@ export const useUserStore = defineStore({
       try {
         const userData = await apiService.post("/auth/login", loginModalData);
         console.log(userData);
-        this.user = userData.user;
-        localStorage.setItem("user-token", userData.token);
+        this.user = userData.data.user;
+        localStorage.setItem("user-token", userData.data.token);
       } catch (e) {
         console.log(e);
       }

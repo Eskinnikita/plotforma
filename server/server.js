@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require("cors")
 
 const authRouter = require('./routers/authRouter')
 
@@ -10,6 +11,7 @@ const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 const app = express();
 
+app.use(cors())
 app.use(express.json())
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static("public"));
