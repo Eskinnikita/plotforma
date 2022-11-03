@@ -51,7 +51,13 @@ let userData = ref({
   password: "",
 });
 function sendLoginData() {
-  userStore.loginUser(userData.value);
+  userStore.loginUser(userData.value).then(() => {
+    userData.value = {
+      email: "",
+      password: "",
+    };
+    toggleDialog();
+  });
 }
 </script>
 

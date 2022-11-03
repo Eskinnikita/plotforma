@@ -8,9 +8,24 @@
         </router-link>
       </div>
       <div class="header__profile profile d-flex align-center">
-        <div class="profile__sing-in" v-if="routeName !== 'sing-in'">
+        <div
+          class="profile__sing-in"
+          v-if="routeName !== 'sing-in' && !userStore.user"
+        >
           <v-btn @click="openLoginModal" class="ma-2">Создать аккаунт</v-btn>
           <v-btn @click="openLoginModal" variant="outlined">Войти</v-btn>
+        </div>
+        <div v-else class="profile__user">
+          <v-btn variant="outlined">
+            {{ userStore.user.username }}
+            <v-menu activator="parent">
+              <v-list>
+                <v-list-item @click="logout" link>
+                  <v-list-item-title>Выйти</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-btn>
         </div>
       </div>
     </div>
@@ -19,17 +34,26 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
 
 import LoginModal from "@/components/global/LoginModal.vue";
+
+const userStore = useUserStore();
+const router = useRouter();
+const route = useRoute();
 
 const loginModal = ref();
 function openLoginModal() {
   loginModal.value.toggleDialog();
 }
 
+function logout() {
+  userStore.logout();
+  router.push("/");
+}
+
 //watch router to hide sing-in-up block
-const route = useRoute();
 let routeName = ref("/");
 watch(
   () => route.name,
