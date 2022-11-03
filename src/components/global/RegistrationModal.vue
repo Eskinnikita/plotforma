@@ -2,7 +2,7 @@
   <Teleport to="body">
     <v-dialog class="w-25" v-model="dialog">
       <v-card>
-        <v-card-title>Вход</v-card-title>
+        <v-card-title>Регистрация</v-card-title>
         <v-card-text>
           <v-container>
             <v-row class="mb-6">
@@ -14,14 +14,33 @@
             </v-row>
             <v-row class="mb-6">
               <v-text-field
+                v-model="userData.email"
+                label="Имя пользователя"
+                required
+              ></v-text-field>
+            </v-row>
+            <v-row class="mb-6">
+              <v-text-field
                 v-model="userData.password"
                 label="Пароль"
                 type="password"
                 required
               ></v-text-field>
             </v-row>
-            <v-btn class="w-100" variant="outlined" @click="sendLoginData">
-              Войти
+            <v-row class="mb-6">
+              <v-text-field
+                v-model="userData.password"
+                label="Пароль еще раз"
+                type="password"
+                required
+              ></v-text-field>
+            </v-row>
+            <v-btn
+              class="w-100"
+              variant="outlined"
+              @click="sendRegistrationData"
+            >
+              Создать аккаунт
             </v-btn>
           </v-container>
         </v-card-text>
@@ -32,8 +51,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { useUserStore } from "@/stores/user";
-const userStore = useUserStore();
 
 const dialog = ref(false);
 /*eslint-disable */
@@ -49,17 +66,10 @@ defineExpose({
 //Let parent component access child functions with refs
 let userData = ref({
   email: "",
+  username: "",
   password: "",
 });
-function sendLoginData() {
-  userStore.loginUser(userData.value).then(() => {
-    userData.value = {
-      email: "",
-      password: "",
-    };
-    toggleDialog();
-  });
-}
+function sendRegistrationData() {}
 </script>
 
 <style scoped></style>

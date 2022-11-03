@@ -1,6 +1,7 @@
 <template>
   <v-app-bar class="header" elevation="0">
     <LoginModal ref="loginModal" />
+    <RegistrationModal ref="registrationModal" />
     <div class="header__container d-flex justify-space-between w-100">
       <div class="header__logo d-flex align-center">
         <router-link to="/">
@@ -12,7 +13,9 @@
           class="profile__sing-in"
           v-if="routeName !== 'sing-in' && !userStore.user"
         >
-          <v-btn @click="openLoginModal" class="ma-2">Создать аккаунт</v-btn>
+          <v-btn @click="openRegistrationModal" class="ma-2"
+            >Зарегистрироваться</v-btn
+          >
           <v-btn @click="openLoginModal" variant="outlined">Войти</v-btn>
         </div>
         <div v-else class="profile__user">
@@ -38,14 +41,21 @@ import { useRoute, useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 
 import LoginModal from "@/components/global/LoginModal.vue";
+import RegistrationModal from "@/components/global/RegistrationModal.vue";
 
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
 
 const loginModal = ref();
+const registrationModal = ref();
+
 function openLoginModal() {
   loginModal.value.toggleDialog();
+}
+
+function openRegistrationModal() {
+  registrationModal.value.toggleDialog();
 }
 
 function logout() {
