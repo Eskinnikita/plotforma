@@ -32,6 +32,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { useField } from "vee-validate";
 import { useUserStore } from "@/stores/user";
 const userStore = useUserStore();
 
@@ -51,6 +52,7 @@ let userData = ref({
   email: "",
   password: "",
 });
+
 function sendLoginData() {
   userStore.loginUser(userData.value).then(() => {
     userData.value = {
