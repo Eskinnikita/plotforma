@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use("/auth", authRouter);
-app.use("/project", projectController);
+app.use("/projects", projectController);
 
 const startServer = async () => {
   try {

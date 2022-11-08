@@ -12,7 +12,10 @@ router.post(
   "/create",
   projectSnippetValidator,
   validateRequest,
+  authMiddleware,
   controller.createProject
 );
+
+router.get("/:userId", authMiddleware, controller.getUserProjects);
 
 module.exports = router;
