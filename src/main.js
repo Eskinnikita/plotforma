@@ -5,6 +5,7 @@ import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import { loadFonts } from "./plugins/webfontloader";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 const token = localStorage.getItem("user-token");
 if (token) {
@@ -12,6 +13,7 @@ if (token) {
 }
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 loadFonts();
 

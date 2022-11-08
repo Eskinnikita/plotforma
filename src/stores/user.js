@@ -23,4 +23,5 @@ export const useUserStore = defineStore({
       localStorage.removeItem("user-token");
     },
   },
+  persist: true,
 });
