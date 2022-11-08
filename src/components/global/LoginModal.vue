@@ -4,26 +4,28 @@
       <v-card>
         <v-card-title>Вход</v-card-title>
         <v-card-text>
-          <v-container>
-            <v-row class="mb-6">
-              <v-text-field
-                v-model="userData.email"
-                label="Электронная почта"
-                required
-              ></v-text-field>
-            </v-row>
-            <v-row class="mb-6">
-              <v-text-field
-                v-model="userData.password"
-                label="Пароль"
-                type="password"
-                required
-              ></v-text-field>
-            </v-row>
-            <v-btn class="w-100" variant="outlined" @click="sendLoginData">
-              Войти
-            </v-btn>
-          </v-container>
+          <v-form>
+            <v-container>
+              <v-row class="mb-6">
+                <v-text-field
+                  v-model="userData.email"
+                  label="Электронная почта"
+                  required
+                ></v-text-field>
+              </v-row>
+              <v-row class="mb-6">
+                <v-text-field
+                  v-model="userData.password"
+                  label="Пароль"
+                  type="password"
+                  required
+                ></v-text-field>
+              </v-row>
+              <v-btn class="w-100" variant="outlined" @click="sendLoginData">
+                Войти
+              </v-btn>
+            </v-container>
+          </v-form>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -32,7 +34,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { useField } from "vee-validate";
 import { useUserStore } from "@/stores/user";
 const userStore = useUserStore();
 
