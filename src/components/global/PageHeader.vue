@@ -6,7 +6,7 @@
       <div class="header__left d-flex flex-start">
         <div class="header__logo d-flex align-center">
           <router-link to="/">
-            <h2>PLOTforma</h2>
+            <h2 class="text-primary">PLOTforma</h2>
           </router-link>
         </div>
         <div class="header__nav">

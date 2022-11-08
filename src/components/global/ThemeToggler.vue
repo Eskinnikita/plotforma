@@ -1,5 +1,7 @@
 <template>
-  <v-btn class="theme-toggler" @click="toggleTheme"> f </v-btn>
+  <div class="theme-toggler">
+    <v-switch @click="toggleTheme" inset hide-details />
+  </div>
 </template>
 
 <script setup>
@@ -14,4 +16,8 @@ function toggleTheme() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.theme-toggler {
+  margin-right: 30px;
+}
+</style>
